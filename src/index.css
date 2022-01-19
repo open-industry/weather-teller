@@ -17,4 +17,5 @@
 div#root {
   min-height: 100vh;
   /* min-height: -webkit-fill-available; */
+  background: #000000;
 }

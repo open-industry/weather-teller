@@ -23,6 +23,7 @@
         "jsx-a11y"
     ],
     "rules": {
+        "no-unused-vars": 0, //temp disable for unused states
         "react/no-unescaped-entities": 0,
         "max-len": ["error", {
             "code": 120,
