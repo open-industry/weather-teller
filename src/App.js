@@ -1,12 +1,16 @@
 import React, { useState } from 'react';
 import { ApiProvider } from './components/apiContext';
 import Forecast from './components/Forecast';
+import Fortune from './components/Fortune';
+import UserInput from './components/UserInput';
 import './App.css';
 import 'bulma/css/bulma.min.css';
+
 /*
 TODO:
 - add a search bar (setLocation)
 */
+
 function App() {
   const [location, setLocation] = useState(() => 'London');
 
@@ -19,6 +23,8 @@ function App() {
         <div className="container">
           <ApiProvider>
             <Forecast location={location} />
+            <Fortune />
+            <UserInput setLocation={setLocation} />
           </ApiProvider>
         </div>
       </div>

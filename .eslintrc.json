@@ -30,11 +30,6 @@
             "ignoreUrls": true,
             "ignoreStrings": true
         }],
-        // requires that react components be function delcarations (eg. function componentName(){})
-        "react/function-component-definition": [2, {
-            "namedComponents": "function-declaration",
-            "unnamedComponents": "function-expression"
-        }],
         "jsx-a11y/label-has-associated-control": [2, {
             "assert": "htmlFor",
             "depth": 3
@@ -43,6 +38,11 @@
         "react/prop-types": 0,
         "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
         "react/react-in-jsx-scope": "off"
+        // // requires that react components be function delcarations (eg. function componentName(){})
+        // "react/function-component-definition": [2, {
+        //     "namedComponents": "function-declaration"//,
+        //     // "unnamedComponents": "function-expression"
+        // }],
     },
     "settings": {
         "react": {
