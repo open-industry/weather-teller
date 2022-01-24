@@ -11,7 +11,8 @@ const helperModule = (() => {
   const kelvinToCelsius = (kelvin) => `${(Math.round((kelvin - 273.15) * 10) / 10).toFixed(1)}°C`;
 
   // helper function to format ip into a unique id string
-  const ipToId = (ip) => ip.split('.').join('');
+  // takes in a string returns returns a number
+  const ipToId = (ip) => Number(ip.split('.').join(''));
 
   return {
     toTitleCase,

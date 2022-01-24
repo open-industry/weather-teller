@@ -8,46 +8,26 @@ function Fortune() {
   const [horroscope, setHorroscope] = useState(() => null);
   const [fetchError, setFetchError] = useState(() => null);
   const [isLoading, setIsLoading] = useState(() => true);
-  const [zodiac, setZodiac] = useState(() => 'libra');
-  const [ipFetchError, setIpFetchError] = useState(() => null);
+  // const [ipFetchError, setIpFetchError] = useState(() => null);
 
   const { FORTUNE, IPIFY } = useApiContext();
 
   const { ipToId } = helperModule;
 
-  // useEffect(() => {
-  //   const getFortune = async () => {
-  //     const urlToFetch = `${FORTUNE.URL}?sign=${zodiac}&day=today`;
-  //     try {
-  //       let response = await fetch(IPIFY.URL, { method: 'GET' });
-  //       if (!response.ok) throw Error('failed to fetch ip');
-  //       const ipData = await response.json();
-  //       setZodiac(() => zodiacSigns[ipToId(ipData.ip) % 12]);
-  //       response = await fetch(urlToFetch, { method: 'GET' });
-  //       if (!response.ok) throw Error('failed to fetch fortune');
-  //       const horroscopeData = await response.json();
-  //       setHorroscope(() => horroscopeData);
-  //       setFetchError(() => null);
-  //     } catch (err) {
-  //       setFetchError(() => err.message);
-  //     } finally {
-  //       setIsLoading(() => false);
-  //     }
-  //   };
-
-  //   getFortune();
-  // }, []);
-
   useEffect(() => {
     const getFortune = async () => {
-      const urlToFetch = `${FORTUNE.URL}?sign=${zodiac}&day=today`;
       try {
-        const response = await fetch(urlToFetch, { method: 'POST' });
-        if (!response.ok) throw Error('failed to fetch fortune');
-        const horroscopeData = await response.json();
+        const response = await fetch(IPIFY.URL, { method: 'GET' });
+        if (!response.status) throw Error('failed to fetch ip, try disabling adblock as it is known to block psychic powers');
+        const ipData = await response.json();
+        const urlToFetch = `${FORTUNE.URL}?sign=${zodiacSigns[ipToId(ipData.ip) % 12]}&day=today`;
+        const response2 = await fetch(urlToFetch, { method: 'POST' });
+        if (!response2.ok) throw Error('failed to fetch fortune');
+        const horroscopeData = await response2.json();
         setHorroscope(() => horroscopeData);
         setFetchError(() => null);
       } catch (err) {
+        // console.log(err);
         setFetchError(() => err.message);
       } finally {
         setIsLoading(() => false);
@@ -55,22 +35,6 @@ function Fortune() {
     };
 
     getFortune();
-  }, []);
-
-  useEffect(() => {
-    const getIP = async () => {
-      try {
-        const response = await fetch(IPIFY.URL, { method: 'GET' });
-        if (!response.ok) throw Error('failed to fetch data');
-        const ipData = await response.json();
-        console.log(zodiacSigns[ipToId(ipData.ip) % 12]);
-        setIpFetchError(() => null);
-      } catch (err) {
-        setIpFetchError(() => err.message);
-      }
-    };
-
-    getIP();
   }, []);
 
   if (isLoading) {
@@ -83,7 +47,8 @@ function Fortune() {
   return (
     <div className="box">
       <p className="is-size-4">
-        {`Fortune: ${horroscope.description}`}
+        {fetchError && `Error: ${fetchError}`}
+        {!fetchError && `Fortune: ${horroscope.description}`}
       </p>
     </div>
   );
