@@ -1,4 +1,5 @@
 import React from 'react';
+import forecastIcon from '../scripts/forecastIcon';
 
 const currentDay = new Date().getDay();
 const weekDays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];

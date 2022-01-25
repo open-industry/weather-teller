@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from 'react';
+import publicIp from 'public-ip';
 import { useApiContext } from './apiContext';
 import helperModule from '../scripts/engine';
 
 const zodiacSigns = ['capricorn', 'aquarius', 'pisces', 'aries', 'taurus', 'gemini', 'cancer', 'leo', 'virgo', 'libra', 'scorpio', 'sagittarius'];
+
+const FETCH_ERROR_MESSAGE = 'failed to fetch fortune';
 
 function Fortune() {
   const [horroscope, setHorroscope] = useState(() => null);
@@ -10,25 +13,23 @@ function Fortune() {
   const [isLoading, setIsLoading] = useState(() => true);
   // const [ipFetchError, setIpFetchError] = useState(() => null);
 
-  const { FORTUNE, IPIFY } = useApiContext();
+  const { FORTUNE } = useApiContext();
 
   const { ipToId } = helperModule;
 
   useEffect(() => {
     const getFortune = async () => {
       try {
-        const response = await fetch(IPIFY.URL, { method: 'GET' });
-        if (!response.status) throw Error('failed to fetch ip, try disabling adblock as it is known to block psychic powers');
-        const ipData = await response.json();
-        const urlToFetch = `${FORTUNE.URL}?sign=${zodiacSigns[ipToId(ipData.ip) % 12]}&day=today`;
-        const response2 = await fetch(urlToFetch, { method: 'POST' });
-        if (!response2.ok) throw Error('failed to fetch fortune');
-        const horroscopeData = await response2.json();
+        const ipData = await publicIp.v4();
+        const urlToFetch = `${FORTUNE.URL}?sign=${zodiacSigns[ipToId(ipData) % 12]}&day=today`;
+        const response = await fetch(urlToFetch, { method: 'POST' });
+        if (!response.ok) throw Error(FETCH_ERROR_MESSAGE);
+        const horroscopeData = await response.json();
         setHorroscope(() => horroscopeData);
         setFetchError(() => null);
       } catch (err) {
-        // console.log(err);
-        setFetchError(() => err.message);
+        if (!err.message === FETCH_ERROR_MESSAGE) setFetchError(() => 'failed to fetch ip, try disabling adblock as it is known to block psychic powers');
+        else setFetchError(() => err.message);
       } finally {
         setIsLoading(() => false);
       }

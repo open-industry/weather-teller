@@ -16,10 +16,6 @@ export function ApiProvider({ children }) {
       URL: 'https://aztro.sameerkumar.website',
       KEY: '',
     },
-    IPIFY: {
-      URL: 'https://api.ipify.org/?format=json',
-      KEY: '',
-    },
   }), []);
 
   return (
