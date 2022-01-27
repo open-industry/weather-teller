@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react';
+import { WiThermometer } from 'react-icons/wi';
 import { useApiContext } from './apiContext';
 import ForecastCard from './ForecastCard';
 import helperModule from '../scripts/engine';
-import errorImage from '../img/error.svg';
-import loading from '../img/loading_bars.gif';
 
 function Forecast({ location }) {
   const [forecast, setForecast] = useState(() => null);
@@ -35,29 +34,34 @@ function Forecast({ location }) {
   if (isLoading) {
     return (
       <ForecastCard
-        image={loading}
+        image="loading"
         weather="loading..."
         temp="loading..."
       />
     );
   }
   return (
-    <div className="box">
-      {/* render if error */}
-      {fetchError && (
-        <ForecastCard
-          image={errorImage}
-        />
-      )}
-      {/* render if response ok */}
-      {!fetchError && (
-        <ForecastCard
-          image={`https://openweathermap.org/img/wn/${forecast.weather[0].icon}@2x.png`}
-          weather={toTitleCase(forecast.weather[0].description)}
-          temp={kelvinToCelsius(forecast.main.temp)}
-        />
-      )}
-    </div>
+    <>
+      <ForecastCard
+        image={!fetchError ? forecast.weather[0].icon : ''}
+        weather={!fetchError ? toTitleCase(forecast.weather[0].description) : fetchError}
+        temp={!fetchError ? kelvinToCelsius(forecast.main.temp) : ''}
+      />
+      <div className="is-flex is-flex-direction-column">
+        <div className="level">
+          <div className="level-item">
+            <WiThermometer color="#20AFBB" size="3em" />
+          </div>
+          <div className="level-item is-flex is-flex-direction-column is-align-items-flex-start">
+            <h3 className="title is-6 is-pink has-text-weight-normal">Feels like</h3>
+            <h2 className="subtitle is-4 mt-0 has-text-white-ter">69 degrees</h2>
+          </div>
+        </div>
+        <p>humidity</p>
+        <p>chance of rain</p>
+        <p>wind speed</p>
+      </div>
+    </>
   );
 }
 

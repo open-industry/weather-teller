@@ -1,26 +1,23 @@
 import React from 'react';
 import forecastIcon from '../scripts/forecastIcon';
 
-const currentDay = new Date().getDay();
 const weekDays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+const date = new Date();
+const currentDay = weekDays[date.getDay()];
+const currentMonth = months[date.getMonth()];
 
 function ForecastCard({ image, weather = '', temp = '' }) {
   return (
-    <div className="card has-background-info">
-      <div className="card-image py-3">
-        <figure className="image is-96x96 is-flex is-align-items-center mx-auto">
-          <img src={image} alt={!weather ? 'error' : weather} />
-        </figure>
-      </div>
-      <div className="card-content">
-        <p className="is-size-4 has-text-white-ter">{weekDays[currentDay]}</p>
-        <p className={`is-size-4 ${!weather ? 'has-text-danger-dark' : 'has-text-white-ter'}`}>
-          {`Weather: ${!weather ? 'n/a' : weather}`}
-        </p>
-        <p className={`is-size-4 ${!temp ? 'has-text-danger-dark' : 'has-text-white-ter'}`}>
-          {`Temp: ${!temp ? 'n/a' : temp}`}
-        </p>
-      </div>
+    <div className="is-flex is-flex-direction-column">
+      <p className={`is-size-3 has-text-weight-semibold ${!weather ? 'has-text-danger-dark' : 'has-text-white-ter'}`}>
+        {!weather ? 'n/a' : weather}
+      </p>
+      {forecastIcon(image)}
+      <p className={`is-size-1 has-text-weight-semibold ${!temp ? 'has-text-danger-dark' : 'has-text-white-ter'}`}>
+        {!temp ? 'n/a' : temp}
+      </p>
+      <p className="is-size-5 has-text-weight-light has-text-white-ter">{`${currentDay}, ${currentMonth} ${date.getDate()} '${date.getFullYear().toString().slice(2)}`}</p>
     </div>
   );
 }

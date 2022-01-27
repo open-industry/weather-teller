@@ -1,4 +1,5 @@
 import React from 'react';
+import { FaSpinner } from 'react-icons/fa';
 import {
   WiDaySunny,
   WiNightClear,
@@ -18,31 +19,39 @@ import {
 const forecastIcon = (code) => {
   switch (code) {
     case '01d':
-      return <WiDaySunny />;
+      return <WiDaySunny color="#20AFBB" size="10em" />;
     case '01n':
-      return <WiNightClear />;
+      return <WiNightClear color="#20AFBB" size="10em" />;
     case '02d':
-      return <WiDayCloudy />;
+      return <WiDayCloudy color="#20AFBB" size="10em" />;
     case '02n':
-      return <WiNightCloudy />;
-    case '03d' || '03n':
-      return <WiCloud />;
-    case '04d' || '04n':
-      return <WiCloudy />;
-    case '09d' || '09n':
-      return <WiShowers />;
+      return <WiNightCloudy color="#20AFBB" size="10em" />;
+    case '03d':
+    case '03n':
+      return <WiCloud color="#20AFBB" size="10em" />;
+    case '04d':
+    case '04n':
+      return <WiCloudy color="#20AFBB" size="10em" />;
+    case '09d':
+    case '09n':
+      return <WiShowers color="#20AFBB" size="10em" />;
     case '10d':
-      return <WiDayRain />;
+      return <WiDayRain color="#20AFBB" size="10em" />;
     case '10n':
-      return <WiNightRain />;
-    case '11d' || '11n':
-      return <WiThunderstorm />;
-    case '13d' || '13n':
-      return <WiSnowflakeCold />;
-    case '50d' || '50n':
-      return <WiDust />;
+      return <WiNightRain color="#20AFBB" size="10em" />;
+    case '11d':
+    case '11n':
+      return <WiThunderstorm color="#20AFBB" size="10em" />;
+    case '13d':
+    case '13n':
+      return <WiSnowflakeCold color="#20AFBB" size="10em" />;
+    case '50d':
+    case '50n':
+      return <WiDust color="#20AFBB" size="10em" />;
+    case 'loading':
+      return <FaSpinner className="spinner m-6" color="#20AFBB" size="4em" />;
     default:
-      return <WiNa />;
+      return <WiNa color="#20AFBB" size="10em" />;
   }
 };
 
