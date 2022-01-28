@@ -14,6 +14,11 @@ import {
   WiSnowflakeCold,
   WiDust,
   WiNa,
+  WiThermometer,
+  WiHumidity,
+  WiRaindrops,
+  WiSprinkle,
+  WiStrongWind,
 } from 'react-icons/wi';
 
 const forecastIcon = (code) => {
@@ -50,6 +55,16 @@ const forecastIcon = (code) => {
       return <WiDust color="#20AFBB" size="10em" />;
     case 'loading':
       return <FaSpinner className="spinner m-6" color="#20AFBB" size="4em" />;
+    case 'feels_like':
+      return <WiThermometer color="#20AFBB" size="3em" />;
+    case 'humidity':
+      return <WiHumidity color="#20AFBB" size="3em" />;
+    case 'pop':
+      return <WiRaindrops color="#20AFBB" size="3em" />;
+    case 'dew_point':
+      return <WiSprinkle color="#20AFBB" size="3em" />;
+    case 'wind_speed':
+      return <WiStrongWind color="#20AFBB" size="3em" />;
     default:
       return <WiNa color="#20AFBB" size="10em" />;
   }

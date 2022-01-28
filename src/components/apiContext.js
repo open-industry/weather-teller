@@ -9,7 +9,7 @@ export function useApiContext() {
 export function ApiProvider({ children }) {
   const API = useMemo(() => ({
     WEATHER: {
-      URL: 'https://api.openweathermap.org/data/2.5/weather',
+      URL: 'https://api.openweathermap.org/data/2.5/',
       KEY: '26e9d62c78da14313b785631ae71d7ed',
     },
     FORTUNE: {

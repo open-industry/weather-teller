@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { WiThermometer } from 'react-icons/wi';
 import { useApiContext } from './apiContext';
 import ForecastCard from './ForecastCard';
+import ForecastDetail from './ForecastDetail';
 import helperModule from '../scripts/engine';
 
 function Forecast({ location }) {
@@ -10,15 +11,18 @@ function Forecast({ location }) {
   const [isLoading, setIsLoading] = useState(() => true);
   const { WEATHER } = useApiContext();
 
-  const { toTitleCase, kelvinToCelsius } = helperModule;
+  const { toTitleCase, kelvinToCelsius, coordinatesUrl, forecastUrl, msToKmh } = helperModule;
 
   useEffect(() => {
     const getForecast = async () => {
-      const urlToFetch = `${WEATHER.URL}?q=${location}&appid=${WEATHER.KEY}`;
+      const coordsUrl = coordinatesUrl(WEATHER, location);
       try {
-        const response = await fetch(urlToFetch, { method: 'GET' });
-        if (!response.ok) throw Error('failed to fetch data');
-        const weatherData = await response.json();
+        const response = await fetch(coordsUrl, { method: 'GET' });
+        if (!response.ok) throw Error('failed to fetch coordinates');
+        const { coord } = await response.json();
+        const response2 = await fetch(forecastUrl(WEATHER, coord), { method: 'GET' });
+        if (!response2.ok) throw Error('failed to fetch forecast');
+        const weatherData = await response2.json();
         setForecast(() => weatherData);
         setFetchError(() => null);
       } catch (err) {
@@ -43,23 +47,36 @@ function Forecast({ location }) {
   return (
     <>
       <ForecastCard
-        image={!fetchError ? forecast.weather[0].icon : ''}
-        weather={!fetchError ? toTitleCase(forecast.weather[0].description) : fetchError}
-        temp={!fetchError ? kelvinToCelsius(forecast.main.temp) : ''}
+        image={!fetchError ? forecast.current.weather[0].icon : ''}
+        weather={!fetchError ? toTitleCase(forecast.current.weather[0].description) : fetchError}
+        temp={!fetchError ? kelvinToCelsius(forecast.current.temp) : ''}
       />
       <div className="is-flex is-flex-direction-column">
-        <div className="level">
-          <div className="level-item">
-            <WiThermometer color="#20AFBB" size="3em" />
-          </div>
-          <div className="level-item is-flex is-flex-direction-column is-align-items-flex-start">
-            <h3 className="title is-6 is-pink has-text-weight-normal">Feels like</h3>
-            <h2 className="subtitle is-4 mt-0 has-text-white-ter">69 degrees</h2>
-          </div>
-        </div>
-        <p>humidity</p>
-        <p>chance of rain</p>
-        <p>wind speed</p>
+        <ForecastDetail
+          icon="feels_like"
+          label="Feels Like"
+          data={kelvinToCelsius(forecast.current.feels_like)}
+        />
+        <ForecastDetail
+          icon="humidity"
+          label="Humidity"
+          data={`${forecast.current.humidity} %`}
+        />
+        <ForecastDetail
+          icon="pop"
+          label="Chance of Rain"
+          data={`${forecast.daily[0].pop * 100} %`}
+        />
+        <ForecastDetail
+          icon="dew_point"
+          label="Dew Point"
+          data={kelvinToCelsius(forecast.current.dew_point)}
+        />
+        <ForecastDetail
+          icon="wind_speed"
+          label="Wind Speed"
+          data={msToKmh(forecast.current.wind_speed)}
+        />
       </div>
     </>
   );
