@@ -9,8 +9,8 @@ function ForecastDetail({ icon, label, data }) {
         {forecastIcon(icon)}
       </div>
       <div className="level-item is-flex is-flex-direction-column is-align-items-flex-start">
-        <h3 className="title is-6 is-pink has-text-weight-normal">{label}</h3>
-        <h2 className="subtitle is-4 mt-0 has-text-white-ter">{data}</h2>
+        <h3 className="title is-7 is-pink has-text-weight-normal">{label}</h3>
+        <h2 className="subtitle is-5 mt-0 has-text-white-ter">{data}</h2>
       </div>
     </div>
   );

@@ -16,6 +16,10 @@ export function ApiProvider({ children }) {
       URL: 'https://aztro.sameerkumar.website',
       KEY: '',
     },
+    // IPSTACK: {
+    //   URL: 'http://api.ipstack.com/',
+    //   KEY: '2c69bdad7f34c641ec2cff892fe679e3',
+    // },
   }), []);
 
   return (

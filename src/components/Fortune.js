@@ -11,7 +11,6 @@ function Fortune() {
   const [horroscope, setHorroscope] = useState(() => null);
   const [fetchError, setFetchError] = useState(() => null);
   const [isLoading, setIsLoading] = useState(() => true);
-  // const [ipFetchError, setIpFetchError] = useState(() => null);
 
   const { FORTUNE } = useApiContext();
 

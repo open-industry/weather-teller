@@ -1,22 +1,21 @@
 * {
   box-sizing: border-box;
-  /* color: #DEDEDF; */
 }
 
 .is-pink {
   color: #9A6AFF!important;
 }
 
-/* .is-blue {
+.is-blue {
   color: #20AFBB!important;
-} */
-
-/* .has-background-transparent {
-  background-color: transparent!important;
-} */
+}
 
 .is-full-width {
   width: 100%!important;
+}
+
+.has-gap {
+  gap: 1em;
 }
 
 
