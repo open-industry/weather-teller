@@ -56,12 +56,13 @@ function Forecast({ location, updateHeroHead }) {
   return (
     <>
       <ForecastCard
-        // image={!fetchError ? forecast.current.weather[0].icon : ''}
-        image="13d"
+        image={!fetchError ? forecast.current.weather[0].icon : ''}
+        // image="13d"
+        timestamp={!fetchError ? forecast.current.dt + forecast.timezone_offset : ''}
         weather={!fetchError ? toTitleCase(forecast.current.weather[0].description) : fetchError}
         temp={!fetchError ? kelvinToCelsius(forecast.current.temp) : ''}
       />
-      <div className="is-flex is-justify-content-space-between is-flex-wrap-wrap has-gap">
+      <div className="is-flex is-justify-content-space-between is-flex-wrap-wrap is-grid-mobile has-gap">
         <ForecastDetail
           icon="feels_like"
           label="Feels Like"
@@ -74,8 +75,9 @@ function Forecast({ location, updateHeroHead }) {
         />
         <ForecastDetail
           icon="pop"
-          label="Chance of Rain"
-          data={`${forecast.daily[0].pop * 100} %`}
+          label="PoP"
+          // data={`${forecast.daily[0].pop * 100} %`}
+          data={`${forecast.daily[0].pop} mm`}
         />
         <ForecastDetail
           icon="dew_point"

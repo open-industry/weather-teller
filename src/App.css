@@ -10,14 +10,30 @@
   color: #20AFBB!important;
 }
 
-.is-full-width {
-  width: 100%!important;
-}
-
 .has-gap {
   gap: 1em;
 }
 
+.is-smaller-mobile {
+  width: 512px;
+  height: 512px;
+}
+
+
+@media (max-width: 768px) {
+  .is-smaller-mobile {
+    width: 256px;
+    height: 256px;
+  }
+
+  .is-grid-mobile {
+    display: grid!important;
+    grid-template-columns: repeat(auto-fit, minmax(256px, 1fr));
+    /* display: flex; */
+    place-items: center;
+  
+  }
+}
 
 /* loading icon animation */
 .spinner {

@@ -1,24 +1,22 @@
 import React from 'react';
 import forecastIcon from '../scripts/forecastIcon';
 
-/*
-create function that takes converts date to unix
-find difference of current date and date from unix
-*/
-
 const weekDays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-const date = new Date();
-const currentDay = weekDays[date.getDay()];
-const currentMonth = months[date.getMonth()];
 
-function ForecastCard({ image, weather = '', temp = '' }) {
+function ForecastCard({ image, timestamp, weather = '', temp = '' }) {
+  const date = new Date(timestamp * 1000);
+  const currentDay = weekDays[date.getDay()];
+  const currentMonth = months[date.getMonth()];
+
   return (
     <div className="is-flex is-flex-direction-column is-align-items-center">
       <p className={`is-size-3 has-text-weight-semibold ${!weather ? 'has-text-danger-dark' : 'has-text-white-ter'}`}>
         {!weather ? 'n/a' : weather}
       </p>
-      {forecastIcon(image)}
+      <figure className="image is-smaller-mobile">
+        {forecastIcon(image)}
+      </figure>
       <p className={`is-size-1 has-text-weight-semibold ${!temp ? 'has-text-danger-dark' : 'has-text-white-ter'}`}>
         {!temp ? 'N/A' : temp}
       </p>

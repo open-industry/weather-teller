@@ -4,8 +4,8 @@ import forecastIcon from '../scripts/forecastIcon';
 
 function ForecastDetail({ icon, label, data }) {
   return (
-    <div className="level mb-4">
-      <div className="level-item">
+    <div className="level is-flex is-flex-wrap-nowrap mb-0">
+      <div className="level-item mb-0">
         {forecastIcon(icon)}
       </div>
       <div className="level-item is-flex is-flex-direction-column is-align-items-flex-start">

@@ -1,11 +1,10 @@
 /* import google font "Kanit" */
-/* @import url('https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&display=swap'); */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
 /* CSS reset */
 * {
   /* font-family: 'Kanit', sans-serif; */
-  font-family: 'Inter', sans-serif;
+  font-family: 'Inter', sans-serif!important;
   box-sizing: border-box;
   padding: 0;
   margin: 0;
