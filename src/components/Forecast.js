@@ -62,7 +62,7 @@ function Forecast({ location, updateHeroHead }) {
         weather={!fetchError ? toTitleCase(forecast.current.weather[0].description) : fetchError}
         temp={!fetchError ? kelvinToCelsius(forecast.current.temp) : ''}
       />
-      <div className="is-flex is-justify-content-space-between is-flex-wrap-wrap is-grid-mobile has-gap">
+      <div className="is-flex-tablet is-grid-mobile">
         <ForecastDetail
           icon="feels_like"
           label="Feels Like"
@@ -74,15 +74,15 @@ function Forecast({ location, updateHeroHead }) {
           data={`${forecast.current.humidity} %`}
         />
         <ForecastDetail
+          icon="dew_point"
+          label="Dew Point"
+          data={kelvinToCelsius(forecast.current.dew_point)}
+        />
+        <ForecastDetail
           icon="pop"
           label="PoP"
           // data={`${forecast.daily[0].pop * 100} %`}
           data={`${forecast.daily[0].pop} mm`}
-        />
-        <ForecastDetail
-          icon="dew_point"
-          label="Dew Point"
-          data={kelvinToCelsius(forecast.current.dew_point)}
         />
         <ForecastDetail
           icon="wind_speed"

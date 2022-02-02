@@ -23,7 +23,7 @@ function UserInput({ setLocation }) {
         <input className="input" type="text" placeholder="Search..." value={userInput} onChange={handleChange} />
       </div>
       <div className="control">
-        <button className="button is-info" type="submit">Search</button>
+        <button className="button" type="submit">Search</button>
       </div>
     </form>
   );

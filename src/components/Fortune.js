@@ -40,15 +40,15 @@ function Fortune() {
   if (isLoading) {
     return (
       <div className="box">
-        <p className="is-size-4">Loading...</p>
+        <p className="is-size-5 has-text-white-ter">Loading...</p>
       </div>
     );
   }
   return (
     <div className="box">
-      <p className="is-size-4">
+      <p className="is-size-5 has-text-white-ter">
         {fetchError && `Error: ${fetchError}`}
-        {!fetchError && `Fortune: ${horroscope.description}`}
+        {!fetchError && horroscope.description}
       </p>
     </div>
   );

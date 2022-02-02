@@ -44,10 +44,13 @@ function App() {
       </header>
       <main className="hero-body is-flex-direction-column is-justify-content-space-evenly">
         <ApiProvider>
-          <div className="container is-flex is-flex-direction-column is-justify-content-space-around">
+          <div
+            className="container is-flex is-flex-direction-column is-justify-content-space-around m-0"
+            style={{ width: '100%' }}
+          >
             <Forecast location={location} updateHeroHead={updateHeroHead} />
           </div>
-          <div className="container">
+          <div className="container my-4">
             <Fortune />
           </div>
         </ApiProvider>

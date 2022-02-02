@@ -1,10 +1,9 @@
 import React from 'react';
-import { WiThermometer } from 'react-icons/wi';
 import forecastIcon from '../scripts/forecastIcon';
 
 function ForecastDetail({ icon, label, data }) {
   return (
-    <div className="level is-flex is-flex-wrap-nowrap mb-0">
+    <div className={`level is-flex is-flex-wrap-nowrap mb-0 ${label === 'Wind Speed' || label === 'PoP' ? 'is-wide-grid-item' : 'is-normal-grid-item'}`}>
       <div className="level-item mb-0">
         {forecastIcon(icon)}
       </div>
