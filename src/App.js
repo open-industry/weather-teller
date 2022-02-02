@@ -54,10 +54,8 @@ function App() {
             <Fortune />
           </div>
         </ApiProvider>
-        <div className="hero-foot">
-          <div className="container">
-            <UserInput setLocation={setLocation} />
-          </div>
+        <div className="container">
+          <UserInput setLocation={setLocation} />
         </div>
       </main>
       <Footer />

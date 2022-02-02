@@ -11,10 +11,15 @@ function Fortune() {
   const [horroscope, setHorroscope] = useState(() => null);
   const [fetchError, setFetchError] = useState(() => null);
   const [isLoading, setIsLoading] = useState(() => true);
+  const [isCollapse, setIsCollapse] = useState(() => true);
 
   const { FORTUNE } = useApiContext();
 
   const { ipToId } = helperModule;
+
+  const toggleCollapse = () => {
+    setIsCollapse((prevState) => !prevState);
+  };
 
   useEffect(() => {
     const getFortune = async () => {
@@ -46,10 +51,13 @@ function Fortune() {
   }
   return (
     <div className="box">
-      <p className="is-size-5 has-text-white-ter">
-        {fetchError && `Error: ${fetchError}`}
-        {!fetchError && horroscope.description}
-      </p>
+      <button className="button collapse" type="button" onClick={toggleCollapse}>Daily Fortune</button>
+      <div className={`is-flex collapse-content ${isCollapse ? '' : 'collapse-active'}`}>
+        <p className="is-size-5 has-text-white-ter">
+          {fetchError && `Error: ${fetchError}`}
+          {!fetchError && horroscope.description}
+        </p>
+      </div>
     </div>
   );
 }

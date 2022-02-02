@@ -34,6 +34,26 @@
   border-color: transparent!important;
 }
 
+.collapse {
+  background-color: transparent!important;
+  width: 100%;
+  font-size: 1.25rem!important;
+  max-height: 30px;
+  padding: 0!important;
+  box-shadow: 0 0 0 .125em rgba(72,95,199,.25)!important;
+}
+
+.collapse-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.35s ease-out;
+}
+
+.collapse-active{
+  max-height: 400px;
+  transition: max-height 0.65s ease-in
+}
+
 @media (min-width: 769px) {
   .is-flex-tablet {
     justify-content: space-evenly;
@@ -44,7 +64,12 @@
 
 @media (max-width: 768px) {
   main {
-    padding-top: 24px!important;
+    padding-top: 0px!important;
+    padding-bottom: 0px!important;
+  }
+
+  .box {
+    padding: .75rem!important;
   }
 
   .is-smaller-mobile {
