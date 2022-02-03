@@ -11,9 +11,17 @@ const helperModule = (() => {
   // expects one argument kelvin as number and returns a string
   const kelvinToCelsius = (kelvin) => `${(Math.round((kelvin - 273.15) * 10) / 10).toFixed(1)} °C`;
 
+  // helper functino converts Kelvin to Fahrenheit
+  // expects one argument kelvin as number and returns a string
+  const kelvinToFarhenheit = (kelvin) => `${(Math.round(((kelvin - 273.15) * (9 / 5) + 32) * 10) / 10).toFixed(1)} °F`;
+
   // helper function converts meters per second to km/h
   // expects one argument ms as number and returns a string
   const msToKmh = (ms) => `${(Math.round((ms * 3.6) * 10) / 10).toFixed(1)} km/h`;
+
+  // helper function converts meters per second to mph
+  // expects one argument ms as number and returns a string
+  const msToMph = (ms) => `${(Math.round((ms * 2.236936) * 10) / 10).toFixed(1)} mph`;
 
   // helper function to format ip into a unique id string
   // expects one argument ip as string and returns a number
@@ -36,7 +44,9 @@ const helperModule = (() => {
   return {
     toTitleCase,
     kelvinToCelsius,
+    kelvinToFarhenheit,
     msToKmh,
+    msToMph,
     ipToId,
     coordinatesUrl,
     forecastUrl,

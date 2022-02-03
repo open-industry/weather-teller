@@ -20,7 +20,7 @@ function UserInput({ setLocation }) {
   return (
     <form className="field has-addons" onSubmit={handleSubmit}>
       <div className="control">
-        <input className="input" type="text" placeholder="Search..." value={userInput} onChange={handleChange} />
+        <input className="input" type="text" placeholder="Location..." value={userInput} onChange={handleChange} />
       </div>
       <div className="control">
         <button className="button" type="submit">Search</button>
