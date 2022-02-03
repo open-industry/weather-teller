@@ -67,6 +67,7 @@ function Forecast({ location, updateHeroHead }) {
     return (
       <ForecastCard
         image="loading"
+        timestamp="loading"
         weather="loading..."
         temp="loading..."
         toggleMetricClick={toggleMetricClick}

@@ -53,6 +53,10 @@
   transition: max-height 0.65s ease-in
 }
 
+.has-text-bgc {
+  color: #000000;
+}
+
 @media (min-width: 769px) {
   .is-flex-tablet {
     justify-content: space-evenly;
@@ -101,4 +105,15 @@ from {
 to {
   transform: rotate(360deg);
 }
+}
+
+/*
+  keeps footer at the bottom of page
+  requires div#root min-height 100vh
+*/
+div#root > footer {
+  position: sticky;
+  top: 100vh;
+  background-color: transparent;
+  z-index: 2;
 }

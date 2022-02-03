@@ -5,7 +5,8 @@ const currentYear = new Date().getFullYear();
 
 export default function Footer() {
   return (
-    <footer className="is-flex is-justify-content-center hero-foot">
+    <footer className="is-flex is-flex-direction-column is-justify-content-center is-align-items-center hero-foot mt-2">
+      <span className="is-size-4 has-text-bgc">Epstein didn't kill himself</span>
       <a href="https://github.com/anon-legion" target="_blank" rel="noopener noreferrer nofollow">
         <p className="is-clickable is-size-5 has-text-weight-light has-text-grey-dark">
           {`Copyright © 2021-${currentYear} =GV=`}

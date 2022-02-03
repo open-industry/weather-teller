@@ -5,9 +5,13 @@ const weekDays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Frida
 const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
 function ForecastCard({ image, timestamp, weather, temp, toggleMetricClick, toggleMetricEnter }) {
-  const date = new Date(timestamp * 1000);
-  const currentDay = weekDays[date.getDay()];
-  const currentMonth = months[date.getMonth()];
+  const parseTime = (propValue) => {
+    if (propValue === 'loading') return 'awaiting response...';
+    const date = new Date(timestamp * 1000);
+    const currentDay = weekDays[date.getDay()];
+    const currentMonth = months[date.getMonth()];
+    return `${currentDay}, ${currentMonth} ${date.getDate()} '${date.getFullYear().toString().slice(2)}`;
+  };
 
   return (
     <div className="is-flex is-flex-direction-column is-align-items-center">
@@ -21,7 +25,9 @@ function ForecastCard({ image, timestamp, weather, temp, toggleMetricClick, togg
       <p className={`is-size-1 has-text-weight-semibold ${!timestamp ? 'has-text-danger-dark' : 'has-text-white-ter'}`}>
         <span className="is-clickable" onClick={toggleMetricClick} onKeyPress={toggleMetricEnter} role="button" tabIndex={0}>{!timestamp ? 'N/A' : temp}</span>
       </p>
-      <p className={`is-size-5 has-text-weight-light ${!timestamp ? 'has-text-danger-dark' : 'has-text-white-ter'}`}>{timestamp ? `${currentDay}, ${currentMonth} ${date.getDate()} '${date.getFullYear().toString().slice(2)}` : 'error'}</p>
+      <p className={`is-size-5 has-text-weight-light ${!timestamp ? 'has-text-danger-dark' : 'has-text-white-ter'}`}>
+        {timestamp ? parseTime(timestamp) : 'error'}
+      </p>
     </div>
   );
 }
