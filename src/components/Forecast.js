@@ -7,6 +7,12 @@ import helperModule from '../scripts/engine';
 
 countries.registerLocale(require('i18n-iso-countries/langs/en.json'));
 
+/*
+ create component wrap forecast card and forecast detail as swipable component
+ use framer-motion and react swipable
+ components accepts array of objects containing current forecast and daily forecast destructured
+*/
+
 function Forecast({ location, updateHeroHead }) {
   const [forecast, setForecast] = useState(() => null);
   const [fetchError, setFetchError] = useState(() => null);

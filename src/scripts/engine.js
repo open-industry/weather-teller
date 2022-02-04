@@ -37,6 +37,20 @@ const helperModule = (() => {
     `${api.URL}onecall?lat=${coords.lat}&lon=${coords.lon}&exclude=minutely,hourly&appid=${api.KEY}`
   );
 
+  const forecastFactory = (forecast, icon, temp, dateTime, feelsLike, windSpeed, humidity, dewPoint, pop) => (
+    {
+      forecast,
+      icon,
+      temp,
+      dateTime,
+      feelsLike,
+      windSpeed,
+      humidity,
+      dewPoint,
+      pop,
+    }
+  );
+
   // // generates api url to get gelocation data from ip provided
   // // expects two arguments API object and ip string and returns a string
   // const geolocationUrl = (api, ip) => `${api.URL}${ip}?access_key=${api.KEY}`;
@@ -50,6 +64,7 @@ const helperModule = (() => {
     ipToId,
     coordinatesUrl,
     forecastUrl,
+    forecastFactory,
     // geolocationUrl,
   };
 })();
