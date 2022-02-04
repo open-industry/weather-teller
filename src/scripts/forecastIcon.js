@@ -1,7 +1,6 @@
 import React from 'react';
 import { FaSpinner } from 'react-icons/fa';
 import {
-  WiNa,
   WiThermometer,
   WiHumidity,
   WiRaindrops,
@@ -24,6 +23,7 @@ import icon11d from '../icons/11d.svg';
 import icon11n from '../icons/11n.svg';
 import icon13dn from '../icons/13d_n.svg';
 import icon50dn from '../icons/50d_n.svg';
+import iconDefault from '../icons/default.svg';
 
 /*
 todo:
@@ -79,7 +79,7 @@ const forecastIcon = (code) => {
     case 'wind_speed':
       return <WiStrongWind color="#20AFBB" size="2.5em" />;
     default:
-      return <WiNa color="#20AFBB" size="10em" />;
+      return <img src={iconDefault} alt="not available" />;
   }
 };
 

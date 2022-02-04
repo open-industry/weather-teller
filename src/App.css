@@ -48,11 +48,6 @@
   transition: max-height 0.35s ease-out;
 }
 
-.collapse-active{
-  max-height: 400px;
-  transition: max-height 0.65s ease-in
-}
-
 .has-text-bgc {
   color: #000000;
 }

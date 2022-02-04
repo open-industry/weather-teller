@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import publicIp from 'public-ip';
 import { useApiContext } from './apiContext';
 import helperModule from '../scripts/engine';
@@ -11,14 +11,22 @@ function Fortune() {
   const [horroscope, setHorroscope] = useState(() => null);
   const [fetchError, setFetchError] = useState(() => null);
   const [isLoading, setIsLoading] = useState(() => true);
-  const [isCollapse, setIsCollapse] = useState(() => true);
+
+  // refers to collapse element
+  const collapseRef = useRef();
 
   const { FORTUNE } = useApiContext();
 
   const { ipToId } = helperModule;
 
+  // onClick handler for the collapse button
+  // sets max-height to 0 to hide the collapse or to equal to the content scroll-height to show it
   const toggleCollapse = () => {
-    setIsCollapse((prevState) => !prevState);
+    if (collapseRef.current.style.maxHeight) {
+      collapseRef.current.style.maxHeight = null;
+    } else {
+      collapseRef.current.style.maxHeight = `${collapseRef.current.scrollHeight}px`;
+    }
   };
 
   useEffect(() => {
@@ -52,7 +60,7 @@ function Fortune() {
   return (
     <div className="box">
       <button className="button collapse" type="button" onClick={toggleCollapse}>Daily Fortune</button>
-      <div className={`is-flex collapse-content ${isCollapse ? '' : 'collapse-active'}`}>
+      <div ref={collapseRef} className="is-flex collapse-content">
         <p className="is-size-5 has-text-white-ter">
           {fetchError && `Error: ${fetchError}`}
           {!fetchError && horroscope.description}

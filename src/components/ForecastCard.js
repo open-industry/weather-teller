@@ -7,7 +7,7 @@ const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', '
 function ForecastCard({ image, timestamp, weather, temp, toggleMetricClick, toggleMetricEnter }) {
   const parseTime = (propValue) => {
     if (propValue === 'loading') return 'awaiting response...';
-    const date = new Date(timestamp * 1000);
+    const date = new Date(propValue * 1000);
     const currentDay = weekDays[date.getDay()];
     const currentMonth = months[date.getMonth()];
     return `${currentDay}, ${currentMonth} ${date.getDate()} '${date.getFullYear().toString().slice(2)}`;
