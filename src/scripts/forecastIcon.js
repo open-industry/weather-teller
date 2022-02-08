@@ -7,6 +7,7 @@ import {
   WiSprinkle,
   WiStrongWind,
 } from 'react-icons/wi';
+import { BsChevronCompactLeft, BsChevronCompactRight } from 'react-icons/bs';
 import icon01d from '../icons/01d.svg';
 import icon01n from '../icons/01n.svg';
 import icon02d from '../icons/02d.svg';
@@ -78,6 +79,10 @@ const forecastIcon = (code) => {
       return <WiSprinkle color="#20AFBB" size="2.5em" />;
     case 'wind_speed':
       return <WiStrongWind color="#20AFBB" size="2.5em" />;
+    case 'left':
+      return <BsChevronCompactLeft color="#20AFBB" size="2.5em" />;
+    case 'right':
+      return <BsChevronCompactRight color="#20AFBB" size="2.5em" />;
     default:
       return <img src={iconDefault} alt="not available" />;
   }

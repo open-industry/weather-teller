@@ -3,15 +3,16 @@ import { motion } from 'framer-motion';
 import { Swipeable } from 'react-swipeable';
 import ForecastCard from './ForecastCard';
 import helperModule from '../../scripts/engine';
+import forecastIcon from '../../scripts/forecastIcon';
 import useWindowSize from './useWindowSize';
 import './ForecastSlider.css';
 
 /*
   -fix swipe bug using swiepable component
+  -move up position state to parent component and pass down as prop
 */
 
 function ForecastSlider({ forecastObj, toggleMetricClick, toggleMetricEnter }) {
-  // move up position to parent component and pass down as prop
   const [position, setPosition] = useState(() => 0);
   const [cardWidth, setCardWidth] = useState(() => 0);
   const [offset, setOffset] = useState(() => 0);
@@ -71,7 +72,7 @@ function ForecastSlider({ forecastObj, toggleMetricClick, toggleMetricEnter }) {
 
   return (
     <>
-      <button className="carousel-nav" type="button" onClick={onRight}>Left</button>
+      <button className="carousel-nav is-clickable" type="button" onClick={onRight}>{forecastIcon('left')}</button>
       <div ref={carouselRef} className="forecast-carousel">
         {forecastArray.map((f, i) => (
           <motion.div
@@ -92,7 +93,7 @@ function ForecastSlider({ forecastObj, toggleMetricClick, toggleMetricEnter }) {
           </motion.div>
         ))}
       </div>
-      <button className="carousel-nav" type="button" onClick={onLeft}>Right</button>
+      <button className="carousel-nav is-clickable" type="button" onClick={onLeft}>{forecastIcon('right')}</button>
     </>
   );
 }

@@ -14,7 +14,24 @@
   position: absolute;
   border-radius: 30px;
   overflow: hidden;
-  box-shadow: 0 0 0.5rem #9A6AFF; 
+  box-shadow: 0 0 0.5rem #9A6AFF;
+}
+
+.carousel-nav  {
+  color:hsla(185, 71%, 43%, 0.40);
+  background-color: transparent;
+  border: none;
+  position: absolute;
+  height: calc(662px + 4rem);
+  right: 100%;
+}
+
+.carousel-nav:last-child {
+ left: 100%;
+}
+
+button.carousel-nav:hover {
+  transform: scale(1.15);
 }
 
 /* mobile only rules */
