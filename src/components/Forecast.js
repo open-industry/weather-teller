@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import countries from 'i18n-iso-countries';
 import { useApiContext } from './apiContext';
+import ForecastSlider from './forecast/ForecastSlider';
 import ForecastCard from './ForecastCard';
 import ForecastDetail from './ForecastDetail';
 import helperModule from '../scripts/engine';
@@ -21,7 +22,7 @@ function Forecast({ location, updateHeroHead }) {
   const { WEATHER } = useApiContext();
 
   const {
-    toTitleCase,
+    // toTitleCase,
     kelvinToCelsius,
     kelvinToFarhenheit,
     coordinatesUrl,
@@ -83,17 +84,16 @@ function Forecast({ location, updateHeroHead }) {
   }
   return (
     <>
-      <ForecastCard
-        image={!fetchError ? forecast.current.weather[0].icon : ''}
-        timestamp={!fetchError ? forecast.current.dt + forecast.timezone_offset : ''}
-        weather={!fetchError ? toTitleCase(forecast.current.weather[0].description) : fetchError}
-        temp={isMetric ? kelvinToCelsius(forecast.current.temp) : kelvinToFarhenheit(forecast.current.temp)}
-        toggleMetricClick={toggleMetricClick}
-        toggleMetricEnter={toggleMetricEnter}
-      />
+      <div className="is-flex is-flex-direction-row">
+        <ForecastSlider
+          forecastObj={forecast}
+          toggleMetricClick={toggleMetricClick}
+          toggleMetricEnter={toggleMetricEnter}
+        />
+      </div>
       {!fetchError
       && (
-        <div className="is-flex-tablet is-grid-mobile">
+        <div className="is-flex-tablet is-grid-mobile mt-3">
           <ForecastDetail
             icon="feels_like"
             label="Feels Like"

@@ -4,7 +4,7 @@ import forecastIcon from '../../scripts/forecastIcon';
 const weekDays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
-function ForecastCard({ image, timestamp, weather, temp, toggleMetricClick, toggleMetricEnter }) {
+function ForecastCard({ weather, image, temp, timestamp, toggleMetricClick, toggleMetricEnter }) {
   const parseTime = (propValue) => {
     if (propValue === 'loading') return 'awaiting response...';
     const date = new Date(propValue * 1000);
@@ -14,7 +14,7 @@ function ForecastCard({ image, timestamp, weather, temp, toggleMetricClick, togg
   };
 
   return (
-    <div className="is-flex is-flex-direction-column is-align-items-center">
+    <div className="is-flex is-flex-direction-column is-align-items-center p-2">
       <p className={`is-size-3 has-text-weight-semibold has-text-centered ${!weather ? 'has-text-danger-dark' : 'has-text-white-ter'}`}>
         {!weather ? 'n/a' : weather}
       </p>

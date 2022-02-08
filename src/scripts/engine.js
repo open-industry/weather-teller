@@ -37,9 +37,12 @@ const helperModule = (() => {
     `${api.URL}onecall?lat=${coords.lat}&lon=${coords.lon}&exclude=minutely,hourly&appid=${api.KEY}`
   );
 
-  const forecastFactory = (forecast, icon, temp, dateTime, feelsLike, windSpeed, humidity, dewPoint, pop) => (
+  // helper function for normalizing weather data from api call
+  // expects 9 arguments weather, icon as string
+  // and temp, dateTime, feelsLIke, windSpeed, humidity, dewPoint, pop as number and returns an object
+  const forecastFactory = (weather, icon, temp, dateTime, feelsLike, windSpeed, humidity, dewPoint, pop) => (
     {
-      forecast,
+      weather,
       icon,
       temp,
       dateTime,

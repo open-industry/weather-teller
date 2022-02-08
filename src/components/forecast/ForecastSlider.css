@@ -1,0 +1,29 @@
+.forecast-carousel {
+  /* contents will be absolutely positioned in forecast-carousel */
+  position: relative;
+  min-height: calc(662px + 4rem);
+  min-width: 100%;
+  display: grid;
+  place-items:center;
+  overflow: hidden;
+  border: 2px solid hsla(185, 71%, 43%, 0.40);
+  border-radius: 10px;
+}
+
+.forecast-container {
+  position: absolute;
+  border-radius: 30px;
+  overflow: hidden;
+  box-shadow: 0 0 0.5rem #9A6AFF; 
+}
+
+/* mobile only rules */
+@media (max-width: 768px) {
+  .forecast-carousel {
+    min-height: calc(406px + 3rem);
+  }
+
+  .carousel-nav {
+    display: none;
+  }
+}
