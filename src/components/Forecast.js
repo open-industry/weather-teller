@@ -2,33 +2,28 @@ import React, { useEffect, useState } from 'react';
 import countries from 'i18n-iso-countries';
 import { useApiContext } from './apiContext';
 import ForecastSlider from './forecast/ForecastSlider';
-import ForecastCard from './ForecastCard';
+import ForecastCard from './forecast/ForecastCard';
 import ForecastDetail from './ForecastDetail';
 import helperModule from '../scripts/engine';
 
 countries.registerLocale(require('i18n-iso-countries/langs/en.json'));
 
-/*
- create component wrap forecast card and forecast detail as swipable component
- use framer-motion and react swipable
- components accepts array of objects containing current forecast and daily forecast destructured
-*/
-
 function Forecast({ location, updateHeroHead }) {
-  const [forecast, setForecast] = useState(() => null);
+  const [forecastArray, setForecastArray] = useState(() => []);
+  const [position, setPosition] = useState(() => 0);
   const [fetchError, setFetchError] = useState(() => null);
   const [isLoading, setIsLoading] = useState(() => true);
   const [isMetric, setIsMetric] = useState(() => true);
   const { WEATHER } = useApiContext();
 
   const {
-    // toTitleCase,
     kelvinToCelsius,
     kelvinToFarhenheit,
     coordinatesUrl,
     forecastUrl,
     msToKmh,
     msToMph,
+    parseForecast,
   } = helperModule;
 
   useEffect(() => {
@@ -48,7 +43,7 @@ function Forecast({ location, updateHeroHead }) {
         weatherData.country = countries.getName(tempCoord.sys.country, 'en', { select: 'official' });
         weatherData.city = tempCoord.name;
         updateHeroHead.success(weatherData);
-        setForecast(() => weatherData);
+        setForecastArray(() => parseForecast(weatherData));
         setFetchError(() => null);
       } catch (err) {
         setFetchError(() => err.message);
@@ -70,6 +65,22 @@ function Forecast({ location, updateHeroHead }) {
     }
   };
 
+  const poistionModule = (() => {
+    const next = () => {
+      if (position < forecastArray.length - 1) {
+        setPosition((prevPosition) => prevPosition + 1);
+      }
+    };
+
+    const prev = () => {
+      if (position > 0) {
+        setPosition((prevPosition) => prevPosition - 1);
+      }
+    };
+
+    return { next, prev };
+  })();
+
   if (isLoading) {
     return (
       <ForecastCard
@@ -86,7 +97,10 @@ function Forecast({ location, updateHeroHead }) {
     <>
       <div className="is-flex is-flex-direction-row">
         <ForecastSlider
-          forecastObj={forecast}
+          forecastArray={forecastArray}
+          position={position}
+          positionModule={poistionModule}
+          isMetric={isMetric}
           toggleMetricClick={toggleMetricClick}
           toggleMetricEnter={toggleMetricEnter}
         />
@@ -98,30 +112,34 @@ function Forecast({ location, updateHeroHead }) {
             icon="feels_like"
             label="Feels Like"
             data={
-              isMetric ? kelvinToCelsius(forecast.current.feels_like) : kelvinToFarhenheit(forecast.current.feels_like)
+              isMetric
+                ? kelvinToCelsius(forecastArray[position].feelsLike)
+                : kelvinToFarhenheit(forecastArray[position].feelsLike)
             }
           />
           <ForecastDetail
             icon="wind_speed"
             label="Wind Speed"
-            data={isMetric ? msToKmh(forecast.current.wind_speed) : msToMph(forecast.current.wind_speed)}
+            data={isMetric ? msToKmh(forecastArray[position].windSpeed) : msToMph(forecastArray[position].windSpeed)}
           />
           <ForecastDetail
             icon="humidity"
             label="Humidity"
-            data={`${forecast.current.humidity} %`}
+            data={`${forecastArray[position].humidity} %`}
           />
           <ForecastDetail
             icon="dew_point"
             label="Dew Point"
             data={
-              isMetric ? kelvinToCelsius(forecast.current.dew_point) : kelvinToFarhenheit(forecast.current.dew_point)
+              isMetric
+                ? kelvinToCelsius(forecastArray[position].dewPoint)
+                : kelvinToFarhenheit(forecastArray[position].dewPoint)
             }
           />
           <ForecastDetail
             icon="pop"
             label="PoP"
-            data={`${forecast.daily[0].pop * 100}%`} // forecast.daily[0].rain (precipitation volume in mm)
+            data={`${forecastArray[position].pop * 100}%`} // forecast.daily[0].rain (precipitation volume in mm)
           />
         </div>
       )}

@@ -54,6 +54,40 @@ const helperModule = (() => {
     }
   );
 
+  const parseForecast = (forecastData) => {
+    // create condition to prevent current and daily [0] from overlapping
+    const { current, daily } = forecastData;
+
+    const parsedData = daily.map((f, i) => {
+      if (i === 0) {
+        return forecastFactory(
+          current.weather[0].description,
+          current.weather[0].icon,
+          current.temp,
+          current.dt + forecastData.timezone_offset,
+          current.feels_like,
+          current.wind_speed,
+          current.humidity,
+          current.dew_point,
+          f.pop,
+        );
+      }
+      return forecastFactory(
+        f.weather[0].description,
+        f.weather[0].icon,
+        f.temp.day,
+        f.dt + forecastData.timezone_offset,
+        f.feels_like.day,
+        f.wind_speed,
+        f.humidity,
+        f.dew_point,
+        f.pop,
+      );
+    });
+
+    return parsedData;
+  };
+
   // // generates api url to get gelocation data from ip provided
   // // expects two arguments API object and ip string and returns a string
   // const geolocationUrl = (api, ip) => `${api.URL}${ip}?access_key=${api.KEY}`;
@@ -67,7 +101,7 @@ const helperModule = (() => {
     ipToId,
     coordinatesUrl,
     forecastUrl,
-    forecastFactory,
+    parseForecast,
     // geolocationUrl,
   };
 })();

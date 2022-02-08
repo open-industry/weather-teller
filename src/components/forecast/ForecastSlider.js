@@ -9,11 +9,9 @@ import './ForecastSlider.css';
 
 /*
   -fix swipe bug using swiepable component
-  -move up position state to parent component and pass down as prop
 */
 
-function ForecastSlider({ forecastObj, toggleMetricClick, toggleMetricEnter }) {
-  const [position, setPosition] = useState(() => 0);
+function ForecastSlider({ forecastArray, position, positionModule, isMetric, toggleMetricClick, toggleMetricEnter }) {
   const [cardWidth, setCardWidth] = useState(() => 0);
   const [offset, setOffset] = useState(() => 0);
 
@@ -27,47 +25,14 @@ function ForecastSlider({ forecastObj, toggleMetricClick, toggleMetricEnter }) {
     setCardWidth(() => firstCard.offsetWidth);
   }, [size]);
 
-  const { forecastFactory, toTitleCase, kelvinToCelsius } = helperModule;
-
-  const { current, daily } = forecastObj;
-
-  const forecastArray = daily.map((f, i) => {
-    if (i === 0) {
-      return forecastFactory(
-        current.weather[0].description,
-        current.weather[0].icon,
-        current.temp,
-        current.dt + forecastObj.timezone_offset,
-        current.feels_like,
-        current.wind_speed,
-        current.humidity,
-        current.dew_point,
-        f.pop,
-      );
-    }
-    return forecastFactory(
-      f.weather[0].description,
-      f.weather[0].icon,
-      f.temp.day,
-      f.dt + forecastObj.timezone_offset,
-      f.feels_like.day,
-      f.wind_speed,
-      f.humidity,
-      f.dew_point,
-      f.pop,
-    );
-  });
+  const { toTitleCase, kelvinToCelsius, kelvinToFarhenheit } = helperModule;
 
   const onLeft = () => {
-    if (position < forecastArray.length - 1) {
-      setPosition((prevPosition) => prevPosition + 1);
-    }
+    positionModule.next();
   };
 
   const onRight = () => {
-    if (position > 0) {
-      setPosition((prevPosition) => prevPosition - 1);
-    }
+    positionModule.prev();
   };
 
   return (
@@ -85,7 +50,7 @@ function ForecastSlider({ forecastObj, toggleMetricClick, toggleMetricEnter }) {
             <ForecastCard
               weather={toTitleCase(f.weather)}
               image={f.icon}
-              temp={kelvinToCelsius(f.temp)}
+              temp={isMetric ? kelvinToCelsius(f.temp) : kelvinToFarhenheit(f.temp)}
               timestamp={f.dateTime}
               toggleMetricClick={toggleMetricClick}
               toggleMetricEnter={toggleMetricEnter}
