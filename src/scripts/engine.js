@@ -37,6 +37,19 @@ const helperModule = (() => {
     `${api.URL}onecall?lat=${coords.lat}&lon=${coords.lon}&exclude=minutely,hourly&appid=${api.KEY}`
   );
 
+  // helper function to parse dates from unix timestamp from openweather api response
+  // expects one argument propValue as number and returns a string
+  const parseTime = (propValue) => {
+    const weekDays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+    const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
+    if (propValue === -1) return 'awaiting response...';
+    const date = new Date(propValue * 1000);
+    const currentDay = weekDays[date.getDay()];
+    const currentMonth = months[date.getMonth()];
+    return `${currentDay}, ${currentMonth} ${date.getDate()} '${date.getFullYear().toString().slice(2)}`;
+  };
+
   // helper function for normalizing weather data from api call
   // expects 9 arguments weather, icon as string
   // and temp, dateTime, feelsLIke, windSpeed, humidity, dewPoint, pop as number and returns an object
@@ -58,7 +71,12 @@ const helperModule = (() => {
     // create condition to prevent current and daily [0] from overlapping
     const { current, daily } = forecastData;
 
-    const parsedData = daily.map((f, i) => {
+    // removes duplicate forcast from "daily" if "current" forecast is same date (when viewing forecast late at night)
+    const filteredDaily = daily.filter(
+      (d) => parseTime(d.dt + forecastData.timezone_offset) !== parseTime(current.dt + forecastData.timezone_offset),
+    );
+
+    const parsedData = filteredDaily.map((f, i) => {
       if (i === 0) {
         return forecastFactory(
           current.weather[0].description,
@@ -101,6 +119,7 @@ const helperModule = (() => {
     ipToId,
     coordinatesUrl,
     forecastUrl,
+    parseTime,
     parseForecast,
     // geolocationUrl,
   };

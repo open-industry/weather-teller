@@ -1,6 +1,6 @@
 import React, { useState, useLayoutEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
-import { Swipeable } from 'react-swipeable';
+// import useSwipable from 'react-swipeable';
 import ForecastCard from './ForecastCard';
 import helperModule from '../../scripts/engine';
 import forecastIcon from '../../scripts/forecastIcon';

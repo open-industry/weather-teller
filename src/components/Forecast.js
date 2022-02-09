@@ -85,7 +85,7 @@ function Forecast({ location, updateHeroHead }) {
     return (
       <ForecastCard
         image="loading"
-        timestamp="loading"
+        timestamp={-1}
         weather="loading..."
         temp="loading..."
         toggleMetricClick={toggleMetricClick}
@@ -95,16 +95,19 @@ function Forecast({ location, updateHeroHead }) {
   }
   return (
     <>
-      <div className="is-flex is-flex-direction-row">
-        <ForecastSlider
-          forecastArray={forecastArray}
-          position={position}
-          positionModule={poistionModule}
-          isMetric={isMetric}
-          toggleMetricClick={toggleMetricClick}
-          toggleMetricEnter={toggleMetricEnter}
-        />
-      </div>
+      {!fetchError
+        ? (
+          <div className="is-flex is-flex-direction-row">
+            <ForecastSlider
+              forecastArray={forecastArray}
+              position={position}
+              positionModule={poistionModule}
+              isMetric={isMetric}
+              toggleMetricClick={toggleMetricClick}
+              toggleMetricEnter={toggleMetricEnter}
+            />
+          </div>
+        ) : <ForecastCard />}
       {!fetchError
       && (
         <div className="is-flex-tablet is-grid-mobile mt-3">
@@ -139,7 +142,8 @@ function Forecast({ location, updateHeroHead }) {
           <ForecastDetail
             icon="pop"
             label="PoP"
-            data={`${forecastArray[position].pop * 100}%`} // forecast.daily[0].rain (precipitation volume in mm)
+            // forecast.daily[0].rain (precipitation volume in mm)
+            data={`${Math.round(forecastArray[position].pop * 100)}%`}
           />
         </div>
       )}

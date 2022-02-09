@@ -18,7 +18,7 @@
 }
 
 .carousel-nav  {
-  color:hsla(185, 71%, 43%, 0.40);
+  color: hsl(185, 71%, 43%);
   background-color: transparent;
   border: none;
   position: absolute;
@@ -32,6 +32,8 @@
 
 button.carousel-nav:hover {
   transform: scale(1.15);
+  color: hsl(185, 71%, 68%);
+  /* color: red; */
 }
 
 /* mobile only rules */

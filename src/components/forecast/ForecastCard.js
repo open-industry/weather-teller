@@ -1,17 +1,9 @@
 import React from 'react';
+import helperModule from '../../scripts/engine';
 import forecastIcon from '../../scripts/forecastIcon';
 
-const weekDays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-
 function ForecastCard({ weather, image, temp, timestamp, toggleMetricClick, toggleMetricEnter }) {
-  const parseTime = (propValue) => {
-    if (propValue === 'loading') return 'awaiting response...';
-    const date = new Date(propValue * 1000);
-    const currentDay = weekDays[date.getDay()];
-    const currentMonth = months[date.getMonth()];
-    return `${currentDay}, ${currentMonth} ${date.getDate()} '${date.getFullYear().toString().slice(2)}`;
-  };
+  const { parseTime } = helperModule;
 
   return (
     <div className="is-flex is-flex-direction-column is-align-items-center p-2">

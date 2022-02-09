@@ -80,9 +80,9 @@ const forecastIcon = (code) => {
     case 'wind_speed':
       return <WiStrongWind color="#20AFBB" size="2.5em" />;
     case 'left':
-      return <BsChevronCompactLeft color="#20AFBB" size="2.5em" />;
+      return <BsChevronCompactLeft size="2.5em" />;
     case 'right':
-      return <BsChevronCompactRight color="#20AFBB" size="2.5em" />;
+      return <BsChevronCompactRight size="2.5em" />;
     default:
       return <img src={iconDefault} alt="not available" />;
   }
