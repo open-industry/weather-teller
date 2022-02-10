@@ -1,6 +1,6 @@
 import React, { useState, useLayoutEffect, useRef } from 'react';
+import { useSwipeable } from 'react-swipeable';
 import { motion } from 'framer-motion';
-// import useSwipable from 'react-swipeable';
 import ForecastCard from './ForecastCard';
 import helperModule from '../../scripts/engine';
 import forecastIcon from '../../scripts/forecastIcon';
@@ -15,6 +15,13 @@ function ForecastSlider({ forecastArray, position, positionModule, isMetric, tog
   const [cardWidth, setCardWidth] = useState(() => 0);
   const [offset, setOffset] = useState(() => 0);
 
+  const swipeHandlers = useSwipeable({
+    onSwipedLeft: () => positionModule.next(),
+    onSwipedRight: () => positionModule.prev(),
+    preventDefaultTouchmoveEvent: true,
+    trackMouse: true,
+  });
+
   const size = useWindowSize();
 
   const carouselRef = useRef();
@@ -28,37 +35,43 @@ function ForecastSlider({ forecastArray, position, positionModule, isMetric, tog
   const { toTitleCase, kelvinToCelsius, kelvinToFarhenheit } = helperModule;
 
   const onLeft = () => {
-    positionModule.next();
+    positionModule.prev();
   };
 
   const onRight = () => {
-    positionModule.prev();
+    positionModule.next();
   };
 
   return (
     <>
-      <button className="carousel-nav is-clickable" type="button" onClick={onRight}>{forecastIcon('left')}</button>
-      <div ref={carouselRef} className="forecast-carousel">
-        {forecastArray.map((f, i) => (
-          <motion.div
-            className="forecast-container"
-            key={f.dateTime}
-            initial={{ scale: 0, rotation: -180 }}
-            animate={{ rotate: 0, left: `${((i - position) * cardWidth) + offset}px`, scale: i === position ? 1 : 0.8 }}
-            transition={{ type: 'spring', stiffness: 260, damping: 20 }}
-          >
-            <ForecastCard
-              weather={toTitleCase(f.weather)}
-              image={f.icon}
-              temp={isMetric ? kelvinToCelsius(f.temp) : kelvinToFarhenheit(f.temp)}
-              timestamp={f.dateTime}
-              toggleMetricClick={toggleMetricClick}
-              toggleMetricEnter={toggleMetricEnter}
-            />
-          </motion.div>
-        ))}
+      <button className="carousel-nav is-clickable" type="button" onClick={onLeft}>{forecastIcon('left')}</button>
+      <div {...swipeHandlers} style={{ width: '100%' }}>
+        <div ref={carouselRef} className="forecast-carousel">
+          {forecastArray.map((f, i) => (
+            <motion.div
+              className="forecast-container"
+              key={f.dateTime}
+              initial={{ scale: 0, rotation: -180 }}
+              animate={{
+                rotate: 0,
+                left: `${((i - position) * cardWidth) + offset}px`,
+                scale: i === position ? 1 : 0.8,
+              }}
+              transition={{ type: 'spring', stiffness: 260, damping: 20 }}
+            >
+              <ForecastCard
+                weather={toTitleCase(f.weather)}
+                image={f.icon}
+                temp={isMetric ? kelvinToCelsius(f.temp) : kelvinToFarhenheit(f.temp)}
+                timestamp={f.dateTime}
+                toggleMetricClick={toggleMetricClick}
+                toggleMetricEnter={toggleMetricEnter}
+              />
+            </motion.div>
+          ))}
+        </div>
       </div>
-      <button className="carousel-nav is-clickable" type="button" onClick={onLeft}>{forecastIcon('right')}</button>
+      <button className="carousel-nav is-clickable" type="button" onClick={onRight}>{forecastIcon('right')}</button>
     </>
   );
 }
