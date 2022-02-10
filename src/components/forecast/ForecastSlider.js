@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-props-no-spreading */
 import React, { useState, useLayoutEffect, useRef } from 'react';
 import { useSwipeable } from 'react-swipeable';
 import { motion } from 'framer-motion';

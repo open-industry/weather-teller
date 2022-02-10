@@ -24,7 +24,7 @@
     ],
     "rules": {
         // "no-unused-vars": 0, //temp disabled rule for development
-        "react/jsx-props-no-spreading": 0,
+        // "react/jsx-props-no-spreading": "off",
         "react/no-unescaped-entities": 0,
         "max-len": ["error", {
             "code": 120,
