@@ -44,6 +44,7 @@ function Forecast({ location, updateHeroHead }) {
         weatherData.city = tempCoord.name;
         updateHeroHead.success(weatherData);
         setForecastArray(() => parseForecast(weatherData));
+        setPosition(() => 0);
         setFetchError(() => null);
       } catch (err) {
         setFetchError(() => err.message);

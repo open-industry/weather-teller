@@ -15,12 +15,28 @@
   height: 512px;
 }
 
+.is-size-dynamic-3 {
+  font-size: calc(2rem + 0.75vw);
+}
+
+.is-size-dynamic-4 {
+  font-size: calc(1.5em + 0.5vw);
+}
+
 .is-normal-grid-item {
   grid-column: span 2 / auto;
 }
 
 .is-wide-grid-item {
   grid-column: span 3 / auto;
+}
+
+.has-color-inactive {
+  color: hsla(0, 0%, 75%, 0.6)!important;
+}
+
+.has-color-inactive:hover {
+  color: hsla(0, 0%, 90%, 0.75)!important;
 }
 
 .box {
@@ -50,6 +66,10 @@
 
 .has-text-bgc {
   color: #000000;
+}
+
+#temp {
+  gap: 0.5rem;
 }
 
 /* viewports greater than mobile rules */

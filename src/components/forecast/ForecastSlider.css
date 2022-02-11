@@ -33,13 +33,12 @@
 button.carousel-nav:hover {
   transform: scale(1.15);
   color: hsl(185, 71%, 68%);
-  /* color: red; */
 }
 
 /* mobile only rules */
 @media (max-width: 768px) {
   .forecast-carousel {
-    min-height: calc(406px + 3rem);
+    min-height: calc(406px + 2rem);
   }
 
   .carousel-nav {

@@ -63,7 +63,7 @@ function ForecastSlider({ forecastArray, position, positionModule, isMetric, tog
               <ForecastCard
                 weather={toTitleCase(f.weather)}
                 image={f.icon}
-                temp={isMetric ? kelvinToCelsius(f.temp) : kelvinToFarhenheit(f.temp)}
+                temp={isMetric ? [kelvinToCelsius(f.temp), '|°F'] : [kelvinToFarhenheit(f.temp), '|°C']}
                 timestamp={f.dateTime}
                 toggleMetricClick={toggleMetricClick}
                 toggleMetricEnter={toggleMetricEnter}

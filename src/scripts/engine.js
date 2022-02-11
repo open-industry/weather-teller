@@ -73,7 +73,8 @@ const helperModule = (() => {
 
     // removes duplicate forcast from "daily" if "current" forecast is same date (when viewing forecast late at night)
     const filteredDaily = daily.filter(
-      (d) => parseTime(d.dt + forecastData.timezone_offset) !== parseTime(current.dt + forecastData.timezone_offset),
+      (d, i) => parseTime(d.dt + forecastData.timezone_offset) !== parseTime(current.dt + forecastData.timezone_offset)
+        || i === 0,
     );
 
     const parsedData = filteredDaily.map((f, i) => {
