@@ -20,7 +20,11 @@
 }
 
 .is-size-dynamic-4 {
-  font-size: calc(1.5em + 0.5vw);
+  font-size: calc(1.5rem + 0.5vw);
+}
+
+.is-size-dynamic-5 {
+  font-size: calc(1.3rem + 0.5vw);
 }
 
 .is-normal-grid-item {

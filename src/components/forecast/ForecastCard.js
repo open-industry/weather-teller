@@ -18,7 +18,7 @@ function ForecastCard({ weather, image, temp, timestamp, toggleMetricClick, togg
         <p className={`is-size-dynamic-3 has-text-weight-semibold ${!timestamp ? 'has-text-danger-dark' : 'has-text-white-ter'}`}>
           {!timestamp ? 'N/A' : temp[0]}
         </p>
-        {timestamp && <p className="is-size-dynamic-4 has-text-weight-light has-color-inactive">{!timestamp ? null : temp[1]}</p>}
+        {timestamp && <p className="is-size-dynamic-5 has-text-weight-light has-color-inactive">{!timestamp ? null : temp[1]}</p>}
       </span>
       <p className={`is-size-5 has-text-weight-light ${!timestamp ? 'has-text-danger-dark' : 'has-text-white-ter'}`}>
         {timestamp ? parseTime(timestamp) : 'error'}
