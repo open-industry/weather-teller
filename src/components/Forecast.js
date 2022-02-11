@@ -88,7 +88,7 @@ function Forecast({ location, updateHeroHead }) {
         image="loading"
         timestamp={-1}
         weather="loading..."
-        temp="loading..."
+        temp={['loading', '...']}
         toggleMetricClick={toggleMetricClick}
         toggleMetricEnter={toggleMetricEnter}
       />
