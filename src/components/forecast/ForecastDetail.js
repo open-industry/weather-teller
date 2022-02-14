@@ -1,5 +1,5 @@
 import React from 'react';
-import forecastIcon from '../scripts/forecastIcon';
+import forecastIcon from '../../scripts/forecastIcon';
 
 function ForecastDetail({ icon, label, data }) {
   return (

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { ApiProvider } from './components/apiContext';
 import Footer from './components/Footer';
-import Forecast from './components/Forecast';
+import Forecast from './components/forecast/Forecast';
 import Fortune from './components/Fortune';
 import UserInput from './components/UserInput';
 import './App.css';
@@ -14,6 +14,7 @@ function App() {
     country: 'United Kingdom',
   }));
 
+  // module used by the forecast component
   const updateHeroHead = (() => {
     // update heroHead state if location fetch is successful
     // expects an object with city and country properties

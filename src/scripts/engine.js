@@ -67,6 +67,8 @@ const helperModule = (() => {
     }
   );
 
+  // helper function to normalize weather data from api call
+  // expects one argument weather as object and returns an array of objects
   const parseForecast = (forecastData) => {
     // create condition to prevent current and daily [0] from overlapping
     const { current, daily } = forecastData;

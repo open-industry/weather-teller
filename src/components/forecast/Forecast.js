@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import countries from 'i18n-iso-countries';
-import { useApiContext } from './apiContext';
-import ForecastSlider from './forecast/ForecastSlider';
-import ForecastCard from './forecast/ForecastCard';
+import { useApiContext } from '../apiContext';
+import ForecastSlider from './ForecastSlider';
+import ForecastCard from './ForecastCard';
 import ForecastDetail from './ForecastDetail';
-import helperModule from '../scripts/engine';
+import helperModule from '../../scripts/engine';
 
 countries.registerLocale(require('i18n-iso-countries/langs/en.json'));
 
