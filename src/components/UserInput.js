@@ -12,8 +12,10 @@ function UserInput({ setLocation }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    // normalize user input
     const location = toTitleCase(userInput.trim());
     setLocation(() => location);
+    // reset user input state after submit
     setUserInput(() => '');
   };
 

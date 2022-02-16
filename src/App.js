@@ -40,6 +40,7 @@ function App() {
   return (
     <div className="hero is-fullheight has-background-black">
       <header className="hero-head p-5">
+        {/* render official city name if fetch success otherwise render userinput */}
         <h1 className="title is-size-1 is-pink has-text-weight-bold has-text-centered">{heroHead.city ? heroHead.city : location}</h1>
         <h2 className="subtitle is-size-5 is-blue has-text-weight-light has-text-centered">{heroHead.country ? heroHead.country : 'unknown'}</h2>
       </header>

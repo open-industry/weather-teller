@@ -6,6 +6,7 @@ import ForecastCard from './ForecastCard';
 import ForecastDetail from './ForecastDetail';
 import helperModule from '../../scripts/engine';
 
+// initialize countries from i18n-iso-countries library
 countries.registerLocale(require('i18n-iso-countries/langs/en.json'));
 
 function Forecast({ location, updateHeroHead }) {
@@ -26,29 +27,39 @@ function Forecast({ location, updateHeroHead }) {
     parseForecast,
   } = helperModule;
 
+  // fetch forecast on mount
   useEffect(() => {
     const getForecast = async () => {
       const coordsUrl = coordinatesUrl(WEATHER, location);
       try {
+        // fetch coordinates
         const response = await fetch(coordsUrl, { method: 'GET' });
         if (!response.ok) {
+          // if fail display user input as hero head using module provided as props by App.js
           updateHeroHead.fail();
           throw Error('failed to fetch coordinates');
         }
         const tempCoord = await response.json();
+        // destructure coordinates from response and parse to forecast url using helper function
         const { coord } = tempCoord;
         const response2 = await fetch(forecastUrl(WEATHER, coord), { method: 'GET' });
         if (!response2.ok) throw Error('failed to fetch forecast');
         const weatherData = await response2.json();
+        // assign official name of country to response if it exists
         weatherData.country = countries.getName(tempCoord.sys.country, 'en', { select: 'official' });
+        // assign city name to response from first result from coordinates
         weatherData.city = tempCoord.name;
+        // update hero head with official city and country name using module provided as props by App.js
         updateHeroHead.success(weatherData);
+        // parse forecast data to be used by ForecastCard and ForecastDetail and ForecastSlider
         setForecastArray(() => parseForecast(weatherData));
+        // initialize slider position to 0 after each fetch
         setPosition(() => 0);
         setFetchError(() => null);
       } catch (err) {
         setFetchError(() => err.message);
       } finally {
+        // disable loading indicator after fetch and display fetched data
         setIsLoading(() => false);
       }
     };
@@ -56,23 +67,29 @@ function Forecast({ location, updateHeroHead }) {
     getForecast();
   }, [location]);
 
+  // toggle metric and imperial units on click used by ForecastCard
   const toggleMetricClick = () => {
     setIsMetric((prevState) => !prevState);
   };
 
+  // toggle metric and imperial units on enter used by ForfecastCard for screen readers
   const toggleMetricEnter = (e) => {
     if (e.key === 'Enter') {
       setIsMetric((prevState) => !prevState);
     }
   };
 
+  // update slider position for navigation between forecast cards in ForecastSlider
+  // prevents position from going out of bounds of forecastArray
   const poistionModule = (() => {
+    // move position to next forecast card if current position is less than forecastArray length
     const next = () => {
       if (position < forecastArray.length - 1) {
         setPosition((prevPosition) => prevPosition + 1);
       }
     };
 
+    // move position to previous forecast card if current position is greater than 0
     const prev = () => {
       if (position > 0) {
         setPosition((prevPosition) => prevPosition - 1);
@@ -82,6 +99,7 @@ function Forecast({ location, updateHeroHead }) {
     return { next, prev };
   })();
 
+  // render spinning loading indicator while fetching data
   if (isLoading) {
     return (
       <ForecastCard
@@ -91,11 +109,14 @@ function Forecast({ location, updateHeroHead }) {
         temp={['loading', '...']}
         toggleMetricClick={toggleMetricClick}
         toggleMetricEnter={toggleMetricEnter}
+        isTabIndexed={-1}
       />
     );
   }
+  // render after fetching data
   return (
     <>
+      {/* render ForecastSlider if no fetchError otherwise render error ForecastCard */}
       {!fetchError
         ? (
           <div className="is-flex is-flex-direction-row">
@@ -109,6 +130,7 @@ function Forecast({ location, updateHeroHead }) {
             />
           </div>
         ) : <ForecastCard />}
+      {/* do not render if fetchError */}
       {!fetchError
       && (
         <div className="is-flex-tablet is-grid-mobile mt-3">

@@ -2,7 +2,7 @@ import React from 'react';
 import helperModule from '../../scripts/engine';
 import forecastIcon from '../../scripts/forecastIcon';
 
-function ForecastCard({ weather, image, temp, timestamp, toggleMetricClick, toggleMetricEnter }) {
+function ForecastCard({ weather, image, temp, timestamp, toggleMetricClick, toggleMetricEnter, isTabIndexed }) {
   const { parseTime } = helperModule;
 
   return (
@@ -14,10 +14,11 @@ function ForecastCard({ weather, image, temp, timestamp, toggleMetricClick, togg
         {forecastIcon(image)}
       </figure>
       {/* uses timstamp prop to determine if fetch error */}
-      <span className="is-clickable is-flex is-align-items-center" id="temp" onClick={toggleMetricClick} onKeyPress={toggleMetricEnter} role="button" tabIndex={0}>
+      <span className="is-clickable is-flex is-align-items-center" id="temp" onClick={toggleMetricClick} onKeyPress={toggleMetricEnter} role="button" tabIndex={isTabIndexed}>
         <p className={`is-size-dynamic-3 has-text-weight-semibold ${!timestamp ? 'has-text-danger-dark' : 'has-text-white-ter'}`}>
           {!timestamp ? 'N/A' : temp[0]}
         </p>
+        {/* do not render if no  timestamp/fetchError */}
         {timestamp && <p className="is-size-dynamic-5 has-text-weight-light has-color-inactive">{!timestamp ? null : temp[1]}</p>}
       </span>
       <p className={`is-size-5 has-text-weight-light ${!timestamp ? 'has-text-danger-dark' : 'has-text-white-ter'}`}>
