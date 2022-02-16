@@ -27,6 +27,7 @@
   - [x] mobile first design
   - [x] responsive design
 * **JavaScript**
-  - [x] module & builder pattern
+  - [x] module pattern
+  - [x] builder pattern
 * **CSS**
 * **HTML**
