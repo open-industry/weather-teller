@@ -6,7 +6,7 @@
 <br>
 
 ### Swipe on *carousel* on touch devices to browse through daily forecasts for the week
-### Click on *temperature* to toggle betwee metric and imperial
+### Click on *temperature* to toggle betwee metric and imperial system
 ### Click on "Daily Fortune" to see your fortune (if unable to fetch fortune try disabling adblock as it might be blocking the app's psychic abilities)
 <br>
 
@@ -30,4 +30,5 @@
   - [x] module pattern
   - [x] builder pattern
 * **CSS**
+  - [x] media queries for enhanced mobile and touch UX
 * **HTML**
