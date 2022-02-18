@@ -17,7 +17,7 @@ export function ApiProvider({ children }) {
       KEY: '',
     },
     GEOLOCATION: {
-      URL: 'http://api.openweathermap.org/geo/1.0/',
+      URL: 'https://api.openweathermap.org/geo/1.0/',
       KEY: '26e9d62c78da14313b785631ae71d7ed',
     },
     // IPSTACK: {
