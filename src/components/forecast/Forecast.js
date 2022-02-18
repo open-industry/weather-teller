@@ -15,13 +15,15 @@ function Forecast({ location, updateHeroHead }) {
   const [fetchError, setFetchError] = useState(() => null);
   const [isLoading, setIsLoading] = useState(() => true);
   const [isMetric, setIsMetric] = useState(() => true);
-  const { WEATHER } = useApiContext();
+  const [isFirstLoad, setIsFirstLoad] = useState(() => true);
+  const { WEATHER, GEOLOCATION } = useApiContext();
 
   const {
     kelvinToCelsius,
     kelvinToFarhenheit,
     coordinatesUrl,
     forecastUrl,
+    reverseGeocodeUrl,
     msToKmh,
     msToMph,
     parseForecast,
@@ -64,7 +66,53 @@ function Forecast({ location, updateHeroHead }) {
       }
     };
 
-    getForecast();
+    const getUserPositionForecast = async (coord) => {
+      // url of api calls to fetch
+      const urlArray = [reverseGeocodeUrl(GEOLOCATION, coord), forecastUrl(WEATHER, coord)];
+      try {
+        // aggregate results of multiple api calls
+        const responses = await Promise.all(urlArray.map((url) => fetch(url, { method: 'GET' }).catch((err) => err)));
+        if (responses.some((res) => !res.ok)) throw Error('failed to fetch forecast and reversegeocode from coordinates');
+        // destructure results from api calls and parse to json
+        const [geoData, weatherData] = await Promise.all(responses.map((res) => res.json()));
+        // assign official name of country and city from reverse geocode api call to response of weather api call
+        weatherData.country = countries.getName(geoData[0].country, 'en', { select: 'official' });
+        weatherData.city = geoData[0].name;
+        // update hero head with official city and country name using module provided as props by App.js
+        updateHeroHead.success(weatherData);
+        // parse forecast data to be used by ForecastCard and ForecastDetail and ForecastSlider
+        setForecastArray(() => parseForecast(weatherData));
+        // initialize slider position to 0 after each fetch
+        setPosition(() => 0);
+        setFetchError(() => null);
+      } catch (err) {
+        setFetchError(() => err.message);
+      } finally {
+        // disable loading indicator after fetch and display fetched data
+        setIsLoading(() => false);
+        // prevent function from being called again after first load
+        setIsFirstLoad(() => false);
+      }
+    };
+
+    // requestion permission to access user location
+    const geo = navigator.geolocation;
+    if (geo && isFirstLoad) {
+      // if permission is granted and is first load of component, get user position
+      geo.getCurrentPosition((pos) => {
+        // assign coordinates to variable
+        const { latitude: lat, longitude: lon } = pos.coords;
+        // create coordinate object for api call
+        const coord = { lat, lon };
+        getUserPositionForecast(coord);
+      }, (err) => {
+        // if permission is denied call standard getForecast function
+        if (err.code === err.PERMISSION_DENIED) getForecast();
+      });
+    } else {
+      // call if geolocation service are not availbe or is not first load of component
+      getForecast();
+    }
   }, [location]);
 
   // toggle metric and imperial units on click used by ForecastCard

@@ -1,4 +1,5 @@
 /* eslint-disable react/jsx-props-no-spreading */
+// docstring disables react/jsx-props-no-spreading rule from eslint for useSwipeable hook
 import React, { useState, useLayoutEffect, useRef } from 'react';
 import { useSwipeable } from 'react-swipeable';
 import { motion } from 'framer-motion';

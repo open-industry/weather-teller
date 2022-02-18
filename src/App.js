@@ -10,8 +10,8 @@ import 'bulma/css/bulma.min.css';
 function App() {
   const [location, setLocation] = useState(() => 'London');
   const [heroHead, setHeroHead] = useState(() => ({
-    city: 'London',
-    country: 'United Kingdom',
+    city: 'Forecast',
+    country: 'weather and your fortune',
   }));
 
   // module used by the forecast component

@@ -37,6 +37,12 @@ const helperModule = (() => {
     `${api.URL}onecall?lat=${coords.lat}&lon=${coords.lon}&exclude=minutely,hourly&appid=${api.KEY}`
   );
 
+  // generates api url to get city/country name from coordinates provided
+  // expects two arguments API object and coordinates object and returns a string
+  const reverseGeocodeUrl = (api, coords) => (
+    `${api.URL}reverse?lat=${coords.lat}&lon=${coords.lon}&appid=${api.KEY}`
+  );
+
   // helper function to parse dates from unix timestamp from openweather api response
   // expects one argument propValue as number and returns a string
   const parseTime = (propValue) => {
@@ -122,6 +128,7 @@ const helperModule = (() => {
     ipToId,
     coordinatesUrl,
     forecastUrl,
+    reverseGeocodeUrl,
     parseTime,
     parseForecast,
     // geolocationUrl,

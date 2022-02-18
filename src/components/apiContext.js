@@ -16,6 +16,10 @@ export function ApiProvider({ children }) {
       URL: 'https://aztro.sameerkumar.website',
       KEY: '',
     },
+    GEOLOCATION: {
+      URL: 'http://api.openweathermap.org/geo/1.0/',
+      KEY: '26e9d62c78da14313b785631ae71d7ed',
+    },
     // IPSTACK: {
     //   URL: 'http://api.ipstack.com/',
     //   KEY: '2c69bdad7f34c641ec2cff892fe679e3',
