@@ -1,3 +1,151 @@
 * {
   box-sizing: border-box;
 }
+
+.is-pink {
+  color: #9A6AFF!important;
+}
+
+.is-blue {
+  color: #20AFBB!important;
+}
+
+/* figure class used by ForecastCard assigns size to images 256x256 if mobile, se media query below */
+.is-smaller-mobile {
+  width: 512px;
+  height: 512px;
+}
+
+/* dynamic font size the adjust to viewport width */
+.is-size-dynamic-3 {
+  font-size: calc(2rem + 0.75vw);
+}
+
+.is-size-dynamic-4 {
+  font-size: calc(1.5rem + 0.5vw);
+}
+
+.is-size-dynamic-5 {
+  font-size: calc(1.3rem + 0.5vw);
+}
+
+/* used by ForecastDetail.js to define positions when view port collapse */
+.is-normal-grid-item {
+  grid-column: span 2 / auto;
+}
+
+.is-wide-grid-item {
+  grid-column: span 3 / auto;
+}
+
+/* clickable span text of ForecastCard.js that toggles between metrics and imperial */
+.has-color-inactive {
+  color: hsla(0, 0%, 75%, 0.6)!important;
+}
+
+.has-color-inactive:hover {
+  color: hsla(0, 0%, 90%, 0.75)!important;
+}
+
+/* color gradient background of collapsible content used by Fortune.js */
+.box {
+  background-image: linear-gradient(#9A6AFF, #20AFBB);
+}
+
+.button {
+  background-color: #20AFBB!important;
+  color: #FFFFFF!important;
+  border-color: transparent!important;
+}
+
+/* overrides button rules for collapse button */
+.collapse {
+  background-color: transparent!important;
+  width: 100%;
+  font-size: 1.25rem!important;
+  max-height: 30px;
+  padding: 0!important;
+  /* add emphasis the element is clickable due to reduced familiarity caused by width: 100%; */
+  box-shadow: 0 0 0 .125em rgba(72,95,199,.25)!important;
+}
+
+/* default state of collapse content is hidd until collapse is clicked */
+/* transition is triggered when maxHeight is assigned new value equal to scrollHeight in Fortune.js */
+.collapse-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.35s ease-out;
+}
+
+/* style rules for hidden text used by Footer.js */
+.has-text-bgc {
+  color: #000000;
+}
+
+
+#temp {
+  gap: 0.5rem;
+}
+
+/* viewports greater than mobile rules */
+@media (min-width: 769px) {
+  /* div class used by Forecast.js for forecastDetail container, is displayed as grid on mobile*/
+  .is-flex-tablet {
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    gap: 1em;
+  }
+}
+
+/* mobile only rules */
+@media (max-width: 768px) {
+  main {
+    padding-top: 0px!important;
+    padding-bottom: 0px!important;
+  }
+
+  .box {
+    padding: .75rem!important;
+  }
+
+  /* figure class used by ForecastCard assigns size to images 512x512 if greater than mobile */
+  .is-smaller-mobile {
+    width: 256px;
+    height: 256px;
+  }
+
+  /* create grid areas for forecastDetail container */
+  .is-grid-mobile {
+    display: grid!important;
+    grid-template-columns: repeat(6, 1fr);
+    grid-auto-rows: min-content; /* set fixed row heights */
+    place-items: center;
+    gap: .5rem;
+  }
+}
+
+/* loading icon animation */
+.spinner {
+  animation: spin infinite 2.5s linear;
+}
+
+/* animation for loading icon to spin */
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/*
+  keeps footer at the bottom of page
+  requires div#root min-height 100vh
+*/
+div#root > footer {
+  position: sticky;
+  top: 100vh;
+  background-color: transparent;
+  z-index: 2;
+}

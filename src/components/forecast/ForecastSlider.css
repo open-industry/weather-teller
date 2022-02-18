@@ -1,0 +1,58 @@
+.forecast-carousel {
+  /* contents will be absolutely positioned in forecast-carousel */
+  position: relative;
+  /* min-height is card hieght + 4rem for padding */
+  min-height: calc(662px + 4rem);
+  /* allow carousel to fill parent container */
+  min-width: 100%;
+  /* positions children in the middle of grid container */
+  /* can also be done with display: flex; align-items: center; */
+  display: grid;
+  place-items:center;
+  /* hide inactive cards overflowing carousel container */
+  overflow: hidden;
+  border: 2px solid hsla(185, 71%, 43%, 0.40);
+  border-radius: 10px;
+}
+
+.forecast-container {
+  position: absolute;
+  border-radius: 30px;
+  overflow: hidden;
+  box-shadow: 0 0 0.5rem #9A6AFF;
+}
+
+/* style rules for carousel desktop navigation buttons */
+.carousel-nav  {
+  color: hsl(185, 71%, 43%);
+  background-color: transparent;
+  border: none;
+  position: absolute;
+  /* set height equal to carousel container */
+  height: calc(662px + 4rem);
+  /* offset absolute position of button 100% of container width from the right */
+  right: 100%;
+}
+
+.carousel-nav:last-child {
+  /* offset absolute position of button 100% of container width from the left */
+ left: 100%;
+}
+
+button.carousel-nav:hover {
+  transform: scale(1.15);
+  color: hsl(185, 71%, 68%);
+}
+
+/* mobile only rules */
+@media (max-width: 768px) {
+  /* reduce height and padding of carousel container in mobile */
+  /* card size is also reduce on mobile as define on App.css */
+  .forecast-carousel {
+    min-height: calc(406px + 2rem);
+  }
+  /* hide carousel desktop navigation buttons on mobile */
+  .carousel-nav {
+    display: none;
+  }
+}

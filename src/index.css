@@ -1,9 +1,9 @@
-/* import google font "Kanit" */
-@import url('https://fonts.googleapis.com/css2?family=Kanit&display=swap');
+/* import google font "Inter" */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
 /* CSS reset */
 * {
-  font-family: 'Kanit', sans-serif;
+  font-family: 'Inter', sans-serif!important;
   box-sizing: border-box;
   padding: 0;
   margin: 0;
@@ -11,10 +11,11 @@
 
 /*
   if height value is not set on html and body,
-  it will assume the same value given to children
+  it will assume the same value given to child
   that is explicitly assigned a value (i.e. div#root)
 */
 div#root {
   min-height: 100vh;
   /* min-height: -webkit-fill-available; */
+  background: #000000;
 }

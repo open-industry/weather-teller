@@ -23,16 +23,12 @@
         "jsx-a11y"
     ],
     "rules": {
+        // "no-unused-vars": 0, //temp disabled rule for development
         "react/no-unescaped-entities": 0,
         "max-len": ["error", {
             "code": 120,
             "ignoreUrls": true,
             "ignoreStrings": true
-        }],
-        // requires that react components be function delcarations (eg. function componentName(){})
-        "react/function-component-definition": [2, {
-            "namedComponents": "function-declaration",
-            "unnamedComponents": "function-expression"
         }],
         "jsx-a11y/label-has-associated-control": [2, {
             "assert": "htmlFor",
