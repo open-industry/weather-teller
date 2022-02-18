@@ -129,7 +129,7 @@ function Forecast({ location, updateHeroHead }) {
 
   // update slider position for navigation between forecast cards in ForecastSlider
   // prevents position from going out of bounds of forecastArray
-  const poistionModule = (() => {
+  const positionModule = (() => {
     // move position to next forecast card if current position is less than forecastArray length
     const next = () => {
       if (position < forecastArray.length - 1) {
@@ -171,7 +171,7 @@ function Forecast({ location, updateHeroHead }) {
             <ForecastSlider
               forecastArray={forecastArray}
               position={position}
-              positionModule={poistionModule}
+              positionModule={positionModule}
               isMetric={isMetric}
               toggleMetricClick={toggleMetricClick}
               toggleMetricEnter={toggleMetricEnter}
